@@ -17,5 +17,9 @@ exports.route = [
         path: "/task/{id}",
         method: "DELETE",
         handler: utils_1.deleteData
+    }, {
+        path: "/task/{id}",
+        method: "PUT",
+        handler: utils_1.editData
     }
 ];
