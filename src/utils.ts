@@ -32,11 +32,18 @@ export const addUpData = (request : any, h : any) : void =>{
     if(isSuccess){
         const response = h.response({
             status:'success',
-            message : "success add a task" 
+            message : "sukses menambah data" 
          })
          response.code(201);
          return response
          }
+
+         const response = h.response({
+            status: "failed",
+            message : 'Gagal menambahkan data'
+         })
+         response.code(400)
+         return response
 }
 
 export const deleteData = (request : any, h : any) : void =>{
@@ -49,7 +56,7 @@ export const deleteData = (request : any, h : any) : void =>{
                 status : "success",
                 message : "Task berhasil di hapus!"
             })
-            response.code(201)
+            response.code(204)
             return response
         }
 
@@ -78,7 +85,7 @@ export const editData = (request : any, h:any) : void =>{
         message : "Berhasil mengedit data",
         status: "success"
     })
-    response.code(201)
+    response.code(200)
     return response
     }
 
@@ -95,12 +102,13 @@ export const seeDetailData = (request : any,h : any) : any=>{
     const filterId = data.filter(ftr => ftr.id === id)
 
     if(filterId){
-        const catchData = {
+        const catchData = h.response({
             status : 'success',
             data : {
                 filterId
-            }
-        }       
+            },
+        })
+        catchData.code(20)
         return catchData 
     }
     const response = h.response({

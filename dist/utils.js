@@ -29,11 +29,17 @@ const addUpData = (request, h) => {
     if (isSuccess) {
         const response = h.response({
             status: 'success',
-            message: "success add a task"
+            message: "sukses menambah data"
         });
         response.code(201);
         return response;
     }
+    const response = h.response({
+        status: "failed",
+        message: 'Gagal menambahkan data'
+    });
+    response.code(400);
+    return response;
 };
 exports.addUpData = addUpData;
 const deleteData = (request, h) => {
@@ -45,7 +51,7 @@ const deleteData = (request, h) => {
             status: "success",
             message: "Task berhasil di hapus!"
         });
-        response.code(201);
+        response.code(204);
         return response;
     }
     const response = h.response({
@@ -71,7 +77,7 @@ const editData = (request, h) => {
             message: "Berhasil mengedit data",
             status: "success"
         });
-        response.code(201);
+        response.code(200);
         return response;
     }
     const response = h.response({
@@ -86,12 +92,13 @@ const seeDetailData = (request, h) => {
     const { id } = request.params;
     const filterId = data_1.data.filter(ftr => ftr.id === id);
     if (filterId) {
-        const catchData = {
+        const catchData = h.response({
             status: 'success',
             data: {
                 filterId
-            }
-        };
+            },
+        });
+        catchData.code(20);
         return catchData;
     }
     const response = h.response({
