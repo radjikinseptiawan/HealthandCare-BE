@@ -4,13 +4,18 @@ exports.route = void 0;
 const utils_1 = require("./utils");
 exports.route = [
     {
-        path: '/',
+        path: '/task',
         method: "GET",
         handler: utils_1.showUpData
     },
     {
-        path: "/add",
+        path: "/task",
         method: "POST",
         handler: utils_1.addUpData
+    },
+    {
+        path: "/task/{id}",
+        method: "DELETE",
+        handler: utils_1.deleteData
     }
 ];

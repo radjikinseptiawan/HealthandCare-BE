@@ -32,9 +32,31 @@ export const addUpData = (request : any, h : any) : void =>{
     if(isSuccess){
         const response = h.response({
             status:'success',
-            message : "success add an task" 
+            message : "success add a task" 
          })
          response.code(201);
          return response
          }
+}
+
+export const deleteData = (request : any, h : any) : void =>{
+        const { id } = request.params;
+        const index : any= data.findIndex(data => data.id === id);
+
+        if(index !== -1){
+            data.splice(index, 1)
+            const response = h.response({
+                status : "success",
+                message : "Task berhasil di hapus!"
+            })
+            response.code(201)
+            return response
+        }
+
+        const response = h.response({
+            status : "failed",
+            message : "Task gagal di hapus!"
+        })
+        response.code(201)
+        return response
 }
