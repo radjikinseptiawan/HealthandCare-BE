@@ -1,4 +1,4 @@
-import { addUpData, deleteData, editData, showUpData } from './utils'
+import { addUpData, changeStatus, deleteData, editData, seeDetailData, showUpData } from './utils'
 
 export const route : any = [
     {
@@ -19,5 +19,13 @@ export const route : any = [
         path : "/task/{id}",
         method:"PUT",
         handler : editData
+    },{
+        path:"/task/status:{id}",
+        method : "PUT",
+        handler : changeStatus
+    },{
+        path:"/task/index:{id}",
+        method : "GET",
+        handler : seeDetailData
     }
 ]

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.editData = exports.deleteData = exports.addUpData = exports.showUpData = void 0;
+exports.changeStatus = exports.seeDetailData = exports.editData = exports.deleteData = exports.addUpData = exports.showUpData = void 0;
 const data_1 = require("./data");
 const nanoid_1 = require("nanoid");
 const showUpData = (request, h) => {
@@ -82,3 +82,47 @@ const editData = (request, h) => {
     return response;
 };
 exports.editData = editData;
+const seeDetailData = (request, h) => {
+    const { id } = request.params;
+    const filterId = data_1.data.filter(ftr => ftr.id === id);
+    if (filterId) {
+        const catchData = {
+            status: 'success',
+            data: {
+                filterId
+            }
+        };
+        return catchData;
+    }
+    const response = h.response({
+        message: "Gagal!, data tidak ditemukan",
+        status: "failed"
+    });
+    response.code(404);
+    return response;
+};
+exports.seeDetailData = seeDetailData;
+const changeStatus = (request, h) => {
+    const { id } = request.params;
+    const { status } = request.payload;
+    const indexing = data_1.data.findIndex(dataTask => dataTask.id === id);
+    if (indexing !== -1) {
+        data_1.data[indexing] = {
+            ...data_1.data[indexing],
+            status: status
+        };
+        const response = h.response({
+            status: 'success',
+            message: 'Berhasil mengubah status!'
+        });
+        response.code(200);
+        return response;
+    }
+    const response = h.response({
+        status: 'failed',
+        message: 'Gagal mengubah status!. id tidak ditemukan'
+    });
+    response.code(404);
+    return response;
+};
+exports.changeStatus = changeStatus;

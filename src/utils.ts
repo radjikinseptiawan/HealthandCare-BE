@@ -89,3 +89,50 @@ export const editData = (request : any, h:any) : void =>{
     response.code(404)
     return response
 }
+
+export const seeDetailData = (request : any,h : any) : any=>{
+    const {id} = request.params;
+    const filterId = data.filter(ftr => ftr.id === id)
+
+    if(filterId){
+        const catchData = {
+            status : 'success',
+            data : {
+                filterId
+            }
+        }       
+        return catchData 
+    }
+    const response = h.response({
+        message : "Gagal!, data tidak ditemukan",
+        status: "failed"
+    })
+    response.code(404)
+    return response
+}
+
+export const changeStatus = (request:any, h:any) =>{
+    const { id } = request.params;
+    const {status} = request.payload
+    const indexing = data.findIndex(dataTask => dataTask.id === id)
+
+    if(indexing !== -1){
+        data[indexing] = {
+            ...data[indexing],
+            status : status
+        }
+        const response = h.response({
+            status : 'success',
+            message : 'Berhasil mengubah status!'
+        })
+        response.code(200)
+        return response
+    }
+
+    const response = h.response({
+        status : 'failed',
+        message : 'Gagal mengubah status!. id tidak ditemukan'
+    })
+    response.code(404)
+    return response
+}

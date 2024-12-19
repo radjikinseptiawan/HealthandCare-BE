@@ -21,5 +21,13 @@ exports.route = [
         path: "/task/{id}",
         method: "PUT",
         handler: utils_1.editData
+    }, {
+        path: "/task/status:{id}",
+        method: "PUT",
+        handler: utils_1.changeStatus
+    }, {
+        path: "/task/index:{id}",
+        method: "GET",
+        handler: utils_1.seeDetailData
     }
 ];
